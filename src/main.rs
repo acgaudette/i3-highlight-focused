@@ -61,7 +61,6 @@ fn main() {
               i3.command(
                 &format!("[con_id=\"{}\"] border pixel {}", id, highlight)
               ).unwrap();
-              //i3.command(&format!("border pixel {}", highlight)).unwrap();
 
               deselect(id, millis);
             }
@@ -73,7 +72,6 @@ fn main() {
       Err(e) => panic!("Error: {}", e),
       _ => unreachable!()
     }
-    //println!("{:?}\n", ev.ok())
   }
 }
 
