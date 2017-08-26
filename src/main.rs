@@ -11,24 +11,29 @@ use std::env;
 use std::thread;
 use std::time::Duration;
 
-fn parse(args: &[String]) -> i32 {
-  if args.len() == 1 {
+fn parse(args: &[String]) -> (i32, u64) {
+  if args.len() < 2 {
     panic!("Not enough arguments!");
   }
 
-  match args[1].parse::<i32>() {
-    Ok(i) => { i },
-    Err(e) => {
+  let hi = match args[1].parse::<i32>() {
+    Ok(i) => i, Err(e) => {
       panic!("Incorrect argument: {}", e);
     }
-  }
+  };
+
+  let m = match args[2].parse::<u64>() {
+    Ok(i) => i, Err(e) => {
+      panic!("Incorrect argument: {}", e);
+    }
+  };
+
+  (hi, m)
 }
 
 fn main() {
   let args: Vec<String> = env::args().collect();
-  let highlight = parse(&args);
-
-  let millis = 1000;
+  let (highlight, millis) = parse(&args);
 
   let mut i3 = I3Connection::connect().ok().expect("Failed to connect");
   let mut listener = I3EventListener::connect().ok().expect("Failed to bind");
