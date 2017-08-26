@@ -70,7 +70,7 @@ fn main() {
         }
       },
 
-      Err(e) => println!("Error: {}", e),
+      Err(e) => panic!("Error: {}", e),
       _ => unreachable!()
     }
     //println!("{:?}\n", ev.ok())
@@ -79,8 +79,11 @@ fn main() {
 
 fn deselect(id: i32, millis: u64) {
   thread::spawn(move || {
-    let mut i3 = I3Connection::connect().ok().expect("Failed to connect");
+    let mut i3 = I3Connection::connect().ok()
+      .expect("Failed to connect (aux thread)");
+
     thread::sleep(Duration::from_millis(millis));
+    // Remove highlight
     i3.command(&format!("[con_id=\"{}\"] border none", id)).unwrap();
   });
 }
