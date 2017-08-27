@@ -1,5 +1,5 @@
 [root]
-name = "hi"
+name = "i3-highlight-focused"
 version = "0.1.0"
 dependencies = [
  "i3ipc 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",

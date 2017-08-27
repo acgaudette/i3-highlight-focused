@@ -1,5 +1,5 @@
 [package]
-name = "i3-highlight-focus"
+name = "i3-highlight-focused"
 version = "0.1.0"
 authors = ["Aaron C Gaudette <gaudetteaaron@gmail.com>"]
 
