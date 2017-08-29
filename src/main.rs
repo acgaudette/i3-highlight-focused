@@ -10,6 +10,7 @@ use i3ipc::I3EventListener;
 use i3ipc::Subscription;
 use i3ipc::event::Event;
 use i3ipc::event::inner;
+use i3ipc::reply::NodeLayout;
 
 fn main() {
   let args: Vec<String> = env::args().collect();
@@ -28,19 +29,22 @@ fn main() {
           // On new window focus
           inner::WindowChange::Focus => {
             // Ignore quake console
-            if e.container.name.unwrap() != "quaketerm" {
-              // Clear all borders
-              i3.command("[tiling] border none").unwrap();
+            if e.container.name.unwrap() == "quaketerm" { continue; }
 
-              // Highlight
-              let id = e.container.id;
-              i3.command(
-                &format!("[con_id=\"{}\"] border pixel {}", id, highlight)
-              ).unwrap();
+            // Ignore stacked windows
+            if e.container.deco_rect.2 != 0 { continue; }
 
-              // Wait and remove highlight
-              deselect(id, millis);
-            }
+            // Clear all borders
+            i3.command("[tiling] border none").unwrap();
+
+            // Highlight
+            let id = e.container.id;
+            i3.command(
+              &format!("[con_id=\"{}\"] border pixel {}", id, highlight)
+            ).unwrap();
+
+            // Wait and remove highlight
+            deselect(id, millis);
           },
           _ => { }
         }
