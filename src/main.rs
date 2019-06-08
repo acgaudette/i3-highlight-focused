@@ -10,7 +10,6 @@ use i3ipc::I3EventListener;
 use i3ipc::Subscription;
 use i3ipc::event::Event;
 use i3ipc::event::inner;
-use i3ipc::reply::NodeLayout;
 
 fn main() {
   let args: Vec<String> = env::args().collect();
